@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from phonenumber_field.modelfields import PhoneNumberField
 
 class MyUser(AbstractUser):
 
@@ -18,10 +18,10 @@ class MyUser(AbstractUser):
 class Profile(models.Model):
 
     myuser = models.OneToOneField(MyUser, on_delete=models.CASCADE)
-    image = models.ImageField()
+    image = models.ImageField(upload_to='image/', blank=True,)
+    phone = PhoneNumberField(blank=True, region='IN')
+    
 
 
     def __str__(self):
         return self.myuser.username
-
-
